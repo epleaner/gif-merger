@@ -15,7 +15,6 @@ OptionParser.new do |opts|
 
 end.parse!
 
-
 merge_helper = MergeHelper.new
 
 if(options[:use_dominant])

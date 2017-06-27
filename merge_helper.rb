@@ -40,13 +40,14 @@ class MergeHelper
     layer_name = 'merged' if layer_name.nil?
     output_path = "#{layer_name}.gif"
 
-    if shorten || true
+    if shorten
       background_path, foreground_path = shorten_longer(background_path, foreground_path)
     end
 
     background_path, foreground_path = resize_to_match(background_path, foreground_path)
 
     bg_frame_ranges = get_background_frame_ranges(background_path, foreground_path)
+
     `convert #{background_path}[#{bg_frame_ranges}] null: #{foreground_path} -gravity center -layers Composite #{output_path}`
 
     output_path
