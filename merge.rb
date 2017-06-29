@@ -1,5 +1,5 @@
 require 'optparse'
-require_relative 'merge_helper'
+require_relative 'merge_api/app/models/merge_helper'
 
 options = {}
 OptionParser.new do |opts|
