@@ -25,25 +25,21 @@ window.onload = () => {
 
     const xhr = new XMLHttpRequest();
 
+
     xhr.onreadystatechange = function () {
       if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        const response = xhr.responseText;
-        debugger;
+        const blob = xhr.response;
+        const b64Response = btoa(String.fromCharCode.apply(null, new Uint8Array(blob)));
 
-        // convert to Base64
-        var b64Response = btoa(response);
-
-// create an image
-        var outputImg = document.createElement('img');
-        outputImg.src = 'data:image/png;base64,'+b64Response;
-
-// append it to your page
-        document.body.appendChild(outputImg);
+        const gif = document.createElement('img');
+        gif.src = 'data:image/gif;base64,'+ b64Response;
+        document.body.appendChild(gif);
       }
     };
 
     xhr.open('POST', 'http://localhost:3000/api/v1/merge_gifs/', true);
     xhr.withCredentials = true;
+    xhr.responseType = 'arraybuffer';
     xhr.send(formData);
 
 

@@ -99,23 +99,18 @@ window.onload = function () {
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        var response = xhr.responseText;
-        debugger;
+        var blob = xhr.response;
+        var b64Response = btoa(String.fromCharCode.apply(null, new Uint8Array(blob)));
 
-        // convert to Base64
-        var b64Response = btoa(response);
-
-        // create an image
-        var outputImg = document.createElement('img');
-        outputImg.src = 'data:image/png;base64,' + b64Response;
-
-        // append it to your page
-        document.body.appendChild(outputImg);
+        var gif = document.createElement('img');
+        gif.src = 'data:image/gif;base64,' + b64Response;
+        document.body.appendChild(gif);
       }
     };
 
     xhr.open('POST', 'http://localhost:3000/api/v1/merge_gifs/', true);
     xhr.withCredentials = true;
+    xhr.responseType = 'arraybuffer';
     xhr.send(formData);
   });
 };
