@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Gif Merge!</title>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
 <div>
-    <label for="background">Background gif</label>
-    <input type="file" id="background"/>
+    <div class="background-upload">
+        <label for="background">Background gif</label>
+        <input type="file" id="background"/>
+    </div>
 
-    <label for="foreground">Foreground gif</label>
-    <input type="file" id="foreground"/>
+    <div class="foreground-upload">
+        <label for="foreground">Foreground gif</label>
+        <input type="file" id="foreground"/>
+    </div>
 
     <label for="replace-color">Color to replace</label>
     <input type="color" id="replace-color">

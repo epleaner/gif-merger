@@ -2,6 +2,22 @@ function getFile(id) {
   return document.getElementById(id).files[0];
 }
 
+function onFileInputChange(changeEvent) {
+  toggleSubmit();
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const gif = document.createElement('img');
+    gif.classList.add('gif-preview');
+    gif.src = e.target.result;
+
+    changeEvent.target.parentNode.append(gif);
+  };
+
+  reader.readAsDataURL(changeEvent.target.files[0]);
+}
+
 function toggleSubmit() {
   const backgroundFile = getFile('background');
   const foregroundFile = getFile('foreground');
@@ -10,8 +26,8 @@ function toggleSubmit() {
 }
 
 window.onload = () => {
-  document.getElementById('background').onchange = toggleSubmit;
-  document.getElementById('foreground').onchange = toggleSubmit;
+  document.getElementById('background').onchange = onFileInputChange;
+  document.getElementById('foreground').onchange = onFileInputChange;
 
   document.getElementById('merge-button').addEventListener('click', () => {
     const backgroundFile = getFile('background');
@@ -24,7 +40,6 @@ window.onload = () => {
     formData.append("color", replaceColor);
 
     const xhr = new XMLHttpRequest();
-
 
     xhr.onreadystatechange = function () {
       if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -41,7 +56,5 @@ window.onload = () => {
     xhr.withCredentials = true;
     xhr.responseType = 'arraybuffer';
     xhr.send(formData);
-
-
   });
 };

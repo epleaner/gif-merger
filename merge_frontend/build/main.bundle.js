@@ -74,6 +74,22 @@ function getFile(id) {
   return document.getElementById(id).files[0];
 }
 
+function onFileInputChange(changeEvent) {
+  toggleSubmit();
+
+  var reader = new FileReader();
+
+  reader.onload = function (e) {
+    var gif = document.createElement('img');
+    gif.classList.add('gif-preview');
+    gif.src = e.target.result;
+
+    changeEvent.target.parentNode.append(gif);
+  };
+
+  reader.readAsDataURL(changeEvent.target.files[0]);
+}
+
 function toggleSubmit() {
   var backgroundFile = getFile('background');
   var foregroundFile = getFile('foreground');
@@ -82,8 +98,8 @@ function toggleSubmit() {
 }
 
 window.onload = function () {
-  document.getElementById('background').onchange = toggleSubmit;
-  document.getElementById('foreground').onchange = toggleSubmit;
+  document.getElementById('background').onchange = onFileInputChange;
+  document.getElementById('foreground').onchange = onFileInputChange;
 
   document.getElementById('merge-button').addEventListener('click', function () {
     var backgroundFile = getFile('background');
