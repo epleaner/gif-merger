@@ -44,7 +44,15 @@ window.onload = () => {
     xhr.onreadystatechange = function () {
       if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         const blob = xhr.response;
-        const b64Response = btoa(String.fromCharCode.apply(null, new Uint8Array(blob)));
+
+        const bytes = new Uint8Array(blob);
+        let binaryText = '';
+
+        for (let index = 0; index < bytes.byteLength; index++) {
+          binaryText += String.fromCharCode(bytes[index]);
+        }
+
+        const b64Response = btoa(binaryText);
 
         const gif = document.createElement('img');
         gif.src = 'data:image/gif;base64,'+ b64Response;

@@ -1,4 +1,5 @@
 .DS_Store
 *.gif
 .idea/
-merge_frontend/node_modules/**/*
+merge_frontend/node_modules
+merge_frontend/build
